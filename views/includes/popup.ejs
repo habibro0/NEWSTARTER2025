@@ -1,0 +1,228 @@
+<div id="offer-popup" class="popup-overlay">
+    <div class="popup-content">
+        <button class="close-btn" onclick="closePopup()">×</button>
+        <div class="offer-header">
+            <h2>
+                🎉 <span class="brand">GlassesWear</span> - Special Offer
+                <span class="circle-badge">15% OFF</span>
+            </h2>
+            <p class="sub-text">
+                Stylish & Affordable Eyewear for Men, Women & Kids. Don’t miss out!
+            </p>
+        </div>
+
+        <div class="category-grid">
+            <a href="/category/Men%20Eyeglasses"><img src="https://res.cloudinary.com/dzp0yscrc/image/upload/v1744708843/sunglases_x2rzrc.png" alt="Men's Eyeglasses"></a>
+            <a href="/category/Women%20Eyeglasses"><img src="https://res.cloudinary.com/dzp0yscrc/image/upload/v1744708844/womens_fzwcdd.png" alt="Women Eyeglasses"></a>
+            <a href="/category/Kids%20Eyeglasses"><img src="https://res.cloudinary.com/dzp0yscrc/image/upload/v1744708843/new_arrivals_q5tl2k.png" alt="Kids Eyeglasses"></a>
+            <a href="/category/Sports%20&%20Safety%20Glasses"><img src="https://res.cloudinary.com/dzp0yscrc/image/upload/v1744708843/sports_ipvrlc.png" alt="Sports Glasses"></a>
+            <a href="/category/Blue%20Light%20Glasses"><img src="https://res.cloudinary.com/dzp0yscrc/image/upload/v1744708845/blulight_w0wtoq.png" alt="Blue Light Glasses"></a>
+        </div>
+
+        <div class="countdown-wrapper">
+            <p class="countdown-heading">⏳ Time Left:</p>
+            <div class="countdown-timer" id="timer"></div>
+        </div>
+    </div>
+</div>
+
+<style>
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 15, 15, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.popup-content {
+    width: 90% !important;
+    max-width: 1000px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 40px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    animation: scaleIn 0.4s ease;
+    position: relative;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.offer-header h2 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: #333;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+.brand {
+    color: #5a3aff;
+    font-weight: bold;
+}
+
+.circle-badge {
+    display: inline-block;
+    background: #ff4081;
+    color: #fff;
+    border-radius: 50%;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    margin-left: 10px;
+    animation: popIn 1s infinite alternate;
+}
+
+@keyframes popIn {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+.sub-text {
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 1.1rem;
+}
+
+.category-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.category-grid img {
+    width: 130px;
+    height: auto;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.category-grid img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.countdown-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-top: 15px;
+}
+
+.countdown-heading {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.countdown-timer {
+    background: #000000;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    font-weight: bold;
+    display: inline-block;
+    min-width: 180px;
+}
+
+.close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: #5a3aff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Animations */
+@keyframes scaleIn {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .popup-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .category-grid img {
+        width: 100px;
+    }
+
+    .close-btn {
+        top: 10px;
+        right: 10px;
+        font-size: 1.2rem;
+    }
+}
+</style>
+
+<script>
+    // Countdown Timer (30 days)
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 30);
+
+    function updateTimer() {
+        const now = new Date().getTime();
+        const distance = targetDate.getTime() - now;
+
+        if (distance <= 0) {
+            document.getElementById("timer").innerText = "Offer expired";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerText = `${days}d ${hours}h ${mins}m ${secs}s`;
+        setTimeout(updateTimer, 1000);
+    }
+
+    updateTimer(); // Start timer
+
+
+    function closePopup() {
+        document.getElementById("offer-popup").style.display = "none";
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        if (!sessionStorage.getItem('popupShown')) {
+            const popup = document.getElementById('offer-popup');
+            popup.style.display = 'flex';
+
+            setTimeout(() => {
+                sessionStorage.setItem('popupShown', 'true');
+            }, 500); // Short delay to allow animations
+        }
+
+        updateTimer(); // Start the countdown
+    });
+</script>

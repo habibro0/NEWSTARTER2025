@@ -1,0 +1,175 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    
+    <!-- Logo Center for Mobile, Left for Desktop -->
+    <div class="navbar-logo">
+      <a href="/listings">
+        <img src="https://res.cloudinary.com/dzp0yscrc/image/upload/v1743675911/logo_zc4pps.png" alt="Logo">
+      </a>
+    </div>
+
+    <!-- Categories Center -->
+    <div class="navbar-links">
+      <a href="/category/Top%20Man%20Collection">Man</a>
+      <a href="/category/Ladies%20Vision">Ladies</a>
+      <a href="/category/Smart%20Looks%20(For%20Kids)">Kids</a>
+      <a href="/category/Signature%20Styles">Designer</a>
+      <a href="/category/Elite%20Picks">Premium</a>
+      <a href="/category/Summer%20Shades">Sunglasses</a>
+      <a href="/category/Clear%20Vision%20Lenses">Lenses</a>
+      <a href="/category/EyeCare%20Essentials">Accessories</a>
+      <a href="/category/Hot%20Deals">Sale</a>
+    </div>
+
+    <!-- Right Side Icons (Account, Cart, etc.) -->
+    <div class="navbar-right-icons">
+      <a href="#" id="favoritesBtn" class="nav-icon"><i class="fas fa-heart"></i></a>
+      <div class="cart-wrapper">
+        <a href="/cart" class="nav-icon"><i class="fas fa-shopping-cart"></i></a>
+        <% if (typeof cartCount !== 'undefined' && cartCount > 0) { %>
+          <span class="cart-badge"><%= cartCount %></span>
+        <% } %>
+      </div>
+      <div id="favoritesPopup" class="favorites-popup">
+        <div class="favorites-content">
+            <span class="close-btn" onclick="closeFavoritesPopup()">&times;</span>
+            <h4>Your Favorites</h4>
+            <div id="favorites-list"></div>  <!-- یہاں فیورٹ آئٹمز آئیں گے -->
+        </div>
+    </div>
+    
+      <!-- User Dropdown -->
+      <div class="dropdown">
+        <a class="dropdown-toggle" href="#" id="userDropdown" data-bs-toggle="dropdown">
+          <i class="fas fa-user"></i>
+        </a>
+        <ul class="dropdown-menu">
+          <% if (!currentUser) { %>
+            <li><a class="dropdown-item" href="/signup" id="favoritesBtn">Sign Up</a></li>
+            <li><a class="dropdown-item" href="/login" id="favoritesBtn">Login</a></li>
+          <% } else { %>
+            <li><a class="dropdown-item" href="/logout" id="favoritesBtn">Logout</a></li>
+            <% if (["faisalmotiwala", "karim", "habibro123"].includes(currentUser.username)) { %>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="/listings/new">Create Item</a></li>
+              <li><a class="dropdown-item" href="/users">All Users</a></li>
+              <li>
+                <a class="dropdown-item" href="/orders">
+                  Orders
+                  <% if (pendingOrders > 0) { %>
+                    <span class="badge"><%= pendingOrders %></span>
+                  <% } %>
+                </a>
+              </li>
+            <% } %>
+          <% } %>
+        </ul>
+      </div>
+
+      <form class="search-wrapper" role="search" action="/search" method="GET">
+        <i class="fas fa-search search-icon"></i>
+        <input 
+          type="search" 
+          name="query" 
+          placeholder="Search for VIP Glasses..." 
+          class="search-input" 
+          aria-label="Search"
+        >
+      </form>
+      
+    </div>
+    <div class="dropdown1">
+      <a class="dropdown-toggle" href="#" id="userDropdown1" data-bs-toggle="dropdown">
+        <i class="fas fa-user"></i>
+      </a>
+      <ul class="dropdown-menu">
+        <% if (!currentUser) { %>
+          <li><a class="dropdown-item" href="/signup" id="favoritesBtn">Sign Up</a></li>
+          <li><a class="dropdown-item" href="/login" id="favoritesBtn">Login</a></li>
+        <% } else { %>
+          <li><a class="dropdown-item" href="/logout" id="favoritesBtn">Logout</a></li>
+          <% if (["faisalmotiwala", "karim", "habibro123"].includes(currentUser.username)) { %>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/listings/new">Create Item</a></li>
+            <li><a class="dropdown-item" href="/users">All Users</a></li>
+            <li>
+              <a class="dropdown-item" href="/orders">
+                Orders
+                <% if (pendingOrders > 0) { %>
+                  <span class="badge"><%= pendingOrders %></span>
+                <% } %>
+              </a>
+            </li>
+          <% } %>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+    <!-- Hamburger Icon (Mobile) -->
+    <div class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></div>
+  </div>
+
+  <!-- Side Panel for Mobile View -->
+  <div class="side-panel" id="sidePanel">
+    <div class="side-panel-header">
+      <button id="closePanel" class="close-btn">×</button>
+    </div>
+    <div class="side-panel-content">
+      <div class="side-logo">
+        <img src="https://res.cloudinary.com/dzp0yscrc/image/upload/v1743675911/logo_zc4pps.png" alt="Logo">
+      </div>
+      <div class="side-links">
+        <a href="/category/Top%20Man%20Collection">Top Man</a>
+        <a href="/category/Ladies%20Vision">Ladies</a>
+        <a href="/category/Smart%20Looks%20(For%20Kids)">Kids</a>
+        <a href="/category/Signature%20Styles">Designer</a>
+        <a href="/category/Elite%20Picks">Premium</a>
+        <a href="/category/Summer%20Shades">Sunglasses</a>
+        <a href="/category/Clear%20Vision%20Lenses">Lenses</a>
+        <a href="/category/EyeCare%20Essentials">Accessories</a>
+        <a href="/category/Hot%20Deals">Sale</a>
+      </div>
+      <div class="side-icons">
+        <a href="#"><i class="fas fa-heart"></i> Favorite</a>
+        <a href="/cart"><i class="fas fa-shopping-cart"></i> Cart</a>
+        <div class="dropdown">
+          <a class="dropdown-toggle" href="#" id="userDropdown" data-bs-toggle="dropdown">
+            <i class="fas fa-user"></i> Account
+          </a>
+          <ul class="dropdown-menu">
+            <% if (!currentUser) { %>
+              <li><a class="dropdown-item" href="/signup">Sign Up</a></li>
+              <li><a class="dropdown-item" href="/login">Login</a></li>
+            <% } else { %>
+              <li><a class="dropdown-item" href="/logout">Logout</a></li>
+              <% if (["faisalmotiwala", "karim", "habibro123"].includes(currentUser.username)) { %>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/listings/new">Create Item</a></li>
+                <li><a class="dropdown-item" href="/users">All Users</a></li>
+                <li>
+                  <a class="dropdown-item" href="/orders">
+                    Orders
+                    <% if (pendingOrders > 0) { %>
+                      <span class="badge"><%= pendingOrders %></span>
+                    <% } %>
+                  </a>
+                </li>
+              <% } %>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+      <form class="search-wrapper" role="search" action="/search" method="GET">
+        <i class="fas fa-search search-icon"></i>
+        <input 
+          type="search" 
+          name="query" 
+          placeholder="Search for VIP Glasses..." 
+          class="search-input" 
+          aria-label="Search"
+        >
+      </form>
+      
+    </div>
+  </div>
+</nav>
